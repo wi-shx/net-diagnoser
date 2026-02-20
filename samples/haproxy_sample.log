@@ -1,0 +1,5 @@
+Feb 15 10:00:00 localhost haproxy[1234]: 127.0.0.1:54321 [15/Feb/2026:10:00:00.123] backend1 server1 0/0/0/1 500 0 - ----
+Feb 15 10:00:01 localhost haproxy[1234]: 192.168.1.100:54322 [15/Feb/2026:10:00:01.124] backend1 server2 0/0/0/1 502 0 - ----
+Feb 15 10:00:02 localhost haproxy[1234]: 10.0.0.1:54323 [15/Feb/2026:10:00:02.125] backend1 server1 0/0/0/1 500 0 - ----
+Feb 15 10:00:03 localhost haproxy[1234]: 127.0.0.1:54324 [15/Feb/2026:10:00:03.126] backend1 server1 0/0/0/0 200 1234 - ----
+Feb 15 10:00:04 localhost haproxy[1234]: 192.168.1.100:54325 [15/Feb/2026:10:00:04.127] backend1 server2 0/0/0/1 502 0 - ----

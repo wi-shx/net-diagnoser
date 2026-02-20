@@ -1,0 +1,5 @@
+Feb 15 10:00:00 server1 kernel: [12345.678] TCP: time wait bucket table overflow
+Feb 15 10:00:01 server1 nginx: [error] 123#123: connect() failed (111: Connection refused) while connecting to upstream
+Feb 15 10:00:02 server1 kernel: [12346.678] TCP: request_sock_TCP: Possible SYN flooding on port 80. Sending cookies
+Feb 15 10:00:03 server1 nginx: [error] 123#123: upstream timed out (110: Connection timed out)
+Feb 15 10:00:04 server1 nginx: [warn] 123#123: upstream server temporarily disabled while reading response header from upstream
