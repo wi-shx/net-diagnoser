@@ -7,9 +7,9 @@ from dataclasses import dataclass, asdict
 from typing import List, Optional
 import httpx
 
-from core.log_parser import LogEntry, LogStatistics
-from config import Config
-from utils.exceptions import APIError
+from src.core.log_parser import LogEntry, LogStatistics
+from src.config import Config
+from src.utils.exceptions import APIError
 
 
 @dataclass
@@ -39,13 +39,25 @@ class AnalysisResult:
 class AIAnalyzer:
     """AI分析器"""
 
+    # 支持的模型列表
+    SUPPORTED_MODELS = [
+        "glm-4.7",
+        "glm-5.0",
+        "glm-5",
+        "glm-4-plus",
+        "glm-4-flash",
+        "glm-4-flash-250414",
+        "glm-4",
+        "glm-z1-flash",
+    ]
+
     def __init__(self, api_key: str, model: str = "glm-4.7"):
         """
         初始化AI分析器
 
         Args:
             api_key: GLM API密钥
-            model: 模型名称（glm-4.7/glm-5.0）
+            model: 模型名称
 
         Raises:
             ValueError: api_key为空或model不支持
@@ -53,8 +65,8 @@ class AIAnalyzer:
         if not api_key:
             raise ValueError("API key is required")
 
-        if model not in ["glm-4.7", "glm-5.0"]:
-            raise ValueError(f"Unsupported model: {model}")
+        if model not in self.SUPPORTED_MODELS:
+            raise ValueError(f"Unsupported model: {model}. Supported: {', '.join(self.SUPPORTED_MODELS)}")
 
         self.api_key = api_key
         self.model = model
@@ -172,10 +184,6 @@ class AIAnalyzer:
         Raises:
             APIError: API调用失败
         """
-        # 如果是测试用的API密钥，使用mock响应
-        if self.api_key == "test_key_for_demo":
-            return self._mock_response(prompt)
-
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
@@ -202,134 +210,6 @@ class AIAnalyzer:
             raise APIError("API call timed out")
         except Exception as e:
             raise APIError(f"API call failed: {e}")
-
-    def _mock_response(self, prompt: str) -> dict:
-        """
-        Mock API响应（用于测试）
-
-        Args:
-            prompt: AI prompt
-
-        Returns:
-            Mock响应
-        """
-        # 根据日志内容生成mock响应
-        if "connection timeout" in prompt.lower() or "timeout" in prompt.lower():
-            mock_content = """```json
-{
-  "problem_type": "连接超时",
-  "possible_causes": [
-    "防火墙限制",
-    "服务未启动",
-    "网络路由问题"
-  ],
-  "risk_level": "P0",
-  "suggested_commands": [
-    {
-      "category": "网络",
-      "description": "测试网络连通性",
-      "command": "ping target-server.com"
-    },
-    {
-      "category": "服务",
-      "description": "检查服务状态",
-      "command": "systemctl status nginx"
-    },
-    {
-      "category": "防火墙",
-      "description": "检查防火墙规则",
-      "command": "sudo iptables -L -n"
-    }
-  ],
-  "confidence": 0.95
-}
-```"""
-        elif "dns" in prompt.lower():
-            mock_content = """```json
-{
-  "problem_type": "DNS解析失败",
-  "possible_causes": [
-    "DNS服务器配置错误",
-    "DNS记录不存在",
-    "网络防火墙阻止DNS查询"
-  ],
-  "risk_level": "P0",
-  "suggested_commands": [
-    {
-      "category": "DNS",
-      "description": "测试DNS解析",
-      "command": "dig api.example.com +short"
-    },
-    {
-      "category": "网络",
-      "description": "检查DNS服务器连通性",
-      "command": "ping 8.8.8.8"
-    }
-  ],
-  "confidence": 0.90
-}
-```"""
-        elif "500" in prompt or "error" in prompt:
-            mock_content = """```json
-{
-  "problem_type": "服务异常",
-  "possible_causes": [
-    "代码bug",
-    "数据库连接失败",
-    "内存不足"
-  ],
-  "risk_level": "P1",
-  "suggested_commands": [
-    {
-      "category": "服务",
-      "description": "检查服务状态",
-      "command": "systemctl status nginx"
-    },
-    {
-      "category": "服务",
-      "description": "查看服务日志",
-      "command": "journalctl -u nginx -n 100"
-    }
-  ],
-  "confidence": 0.85
-}
-```"""
-        else:
-            # 默认mock响应
-            mock_content = """```json
-{
-  "problem_type": "连接超时",
-  "possible_causes": [
-    "防火墙限制",
-    "服务未启动"
-  ],
-  "risk_level": "P0",
-  "suggested_commands": [
-    {
-      "category": "网络",
-      "description": "测试网络连通性",
-      "command": "ping target-server.com"
-    }
-  ],
-  "confidence": 0.80
-}
-```"""
-
-        return {
-            "choices": [
-                {
-                    "message": {
-                        "role": "assistant",
-                        "content": mock_content,
-                    }
-                }
-            ],
-            "usage": {
-                "prompt_tokens": 1000,
-                "completion_tokens": 500,
-                "total_tokens": 1500,
-            },
-        }
 
     def _parse_response(self, response: dict) -> dict:
         """

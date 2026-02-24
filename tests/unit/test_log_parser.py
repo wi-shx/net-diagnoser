@@ -3,11 +3,8 @@
 """
 
 import pytest
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-from core.log_parser import LogParser, LogStatistics
-from parsers.base import LogEntry
+from src.core.log_parser import LogParser, LogStatistics
+from src.parsers.base import LogEntry
 
 
 class TestLogParser:

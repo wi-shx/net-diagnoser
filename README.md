@@ -29,38 +29,38 @@ DEFAULT_MODEL=glm-4.7
 #### 分析日志文件
 
 ```bash
-python src/cli.py analyze --log /path/to/log.log
+python -m src.cli analyze --log /path/to/log.log
 ```
 
 #### 指定日志格式
 
 ```bash
-python src/cli.py analyze --log /path/to/log.log --format nginx
+python -m src.cli analyze --log /path/to/log.log --format nginx
 ```
 
 #### 指定AI模型
 
 ```bash
-python src/cli.py analyze --log /path/to/log.log --model glm-5.0
+python -m src.cli analyze --log /path/to/log.log --model glm-5.0
 ```
 
 #### 指定报告输出路径
 
 ```bash
-python src/cli.py analyze --log /path/to/log.log --output /path/to/report.md
+python -m src.cli analyze --log /path/to/log.log --output /path/to/report.md
 ```
 
 #### 查看帮助
 
 ```bash
-python src/cli.py --help
-python src/cli.py analyze --help
+python -m src.cli --help
+python -m src.cli analyze --help
 ```
 
 #### 查看版本
 
 ```bash
-python src/cli.py version
+python -m src.cli version
 ```
 
 ## 支持的日志格式

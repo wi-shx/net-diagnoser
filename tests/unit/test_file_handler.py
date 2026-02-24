@@ -5,9 +5,7 @@
 import pytest
 import os
 import tempfile
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-from utils.file_handler import read_file, write_file, read_lines
+from src.utils.file_handler import read_file, write_file, read_lines
 
 
 class TestFileHandler:

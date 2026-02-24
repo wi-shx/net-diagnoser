@@ -5,9 +5,7 @@
 import pytest
 import os
 import tempfile
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-from config import Config
+from src.config import Config
 
 
 class TestConfig:

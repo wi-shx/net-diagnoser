@@ -12,8 +12,8 @@ class Config:
 
     # GLM API配置
     GLM_API_KEY: str
-    GLM_API_URL: str = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
-    DEFAULT_MODEL: str = "glm-4.7"
+    GLM_API_URL: str = "https://open.bigmodel.cn/api/coding/paas/v4/chat/completions"
+    DEFAULT_MODEL: str = "glm-4-flash"
 
     # 文件配置
     MAX_LOG_SIZE: int = 100 * 1024 * 1024  # 100MB
@@ -24,7 +24,7 @@ class Config:
     # AI配置
     AI_TEMPERATURE: float = 0.3
     AI_TOP_P: float = 0.9
-    AI_TIMEOUT: float = 30.0
+    AI_TIMEOUT: float = 120.0  # 增加超时时间
 
     _loaded: bool = False
 

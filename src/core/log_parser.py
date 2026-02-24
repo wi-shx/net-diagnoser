@@ -7,16 +7,12 @@ from dataclasses import dataclass
 from collections import Counter
 from datetime import datetime
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from parsers.base import BaseParser, LogEntry
-from parsers.nginx_parser import NginxParser
-from parsers.haproxy_parser import HAProxyParser
-from parsers.syslog_parser import SyslogParser
-from utils.exceptions import ParseError, FileError
-from utils.file_handler import read_lines
+from src.parsers.base import BaseParser, LogEntry
+from src.parsers.nginx_parser import NginxParser
+from src.parsers.haproxy_parser import HAProxyParser
+from src.parsers.syslog_parser import SyslogParser
+from src.utils.exceptions import ParseError, FileError
+from src.utils.file_handler import read_lines
 
 
 @dataclass

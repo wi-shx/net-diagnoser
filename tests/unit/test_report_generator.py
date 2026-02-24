@@ -4,12 +4,9 @@
 
 import pytest
 from datetime import datetime
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-from core.report_generator import ReportGenerator
-from core.log_parser import LogStatistics
-from core.ai_analyzer import AnalysisResult, SuggestedCommand
+from src.core.report_generator import ReportGenerator
+from src.core.log_parser import LogStatistics
+from src.core.ai_analyzer import AnalysisResult, SuggestedCommand
 
 
 class TestReportGenerator:

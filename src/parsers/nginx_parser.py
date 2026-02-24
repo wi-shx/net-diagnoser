@@ -4,10 +4,7 @@ Nginx日志解析器
 
 import re
 from typing import Optional
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from parsers.base import BaseParser, LogEntry
+from src.parsers.base import BaseParser, LogEntry
 
 
 class NginxParser(BaseParser):
@@ -94,7 +91,7 @@ class NginxParser(BaseParser):
         Returns:
             是否为Nginx日志
         """
-        from utils.file_handler import read_lines
+        from src.utils.file_handler import read_lines
 
         for i, line in enumerate(read_lines(file_path)):
             if i >= 10:  # 只检查前10行

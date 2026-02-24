@@ -11,12 +11,12 @@ import typer
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from config import Config
-from core.log_parser import LogParser
-from core.ai_analyzer import AIAnalyzer
-from core.report_generator import ReportGenerator
-from utils.logger import setup_logger
-from utils.exceptions import NetDiagnoserError, FileError, ConfigError, APIError
+from src.config import Config
+from src.core.log_parser import LogParser
+from src.core.ai_analyzer import AIAnalyzer
+from src.core.report_generator import ReportGenerator
+from src.utils.logger import setup_logger
+from src.utils.exceptions import NetDiagnoserError, FileError, ConfigError, APIError
 
 app = typer.Typer(
     name="netdiagnoser",

@@ -4,10 +4,7 @@
 
 import pytest
 from datetime import datetime
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-from parsers.nginx_parser import NginxParser
+from src.parsers.nginx_parser import NginxParser
 
 
 class TestNginxParser:

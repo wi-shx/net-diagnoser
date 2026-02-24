@@ -6,8 +6,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List
 
-from core.log_parser import LogEntry, LogStatistics
-from core.ai_analyzer import AnalysisResult
+from src.core.log_parser import LogEntry, LogStatistics
+from src.core.ai_analyzer import AnalysisResult
 
 
 @dataclass
