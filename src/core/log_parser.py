@@ -11,6 +11,7 @@ from src.parsers.base import BaseParser, LogEntry
 from src.parsers.nginx_parser import NginxParser
 from src.parsers.haproxy_parser import HAProxyParser
 from src.parsers.syslog_parser import SyslogParser
+from src.parsers.dmesg_parser import DmesgParser
 from src.utils.exceptions import ParseError, FileError
 from src.utils.file_handler import read_lines
 
@@ -41,6 +42,7 @@ class LogParser:
         "nginx": NginxParser,
         "haproxy": HAProxyParser,
         "syslog": SyslogParser,
+        "dmesg": DmesgParser,
     }
 
     def __init__(self, format: Optional[str] = None):
