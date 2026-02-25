@@ -15,6 +15,14 @@ ENV/
 # Reports
 reports/*.md
 
+# Test outputs
+tests/*.log
+htmlcov/
+.coverage
+
+# Audit logs
+logs/audit/*.json
+
 # IDE
 .vscode/
 .idea/
