@@ -1,0 +1,36 @@
+Feb 25 10:00:00 server1 kernel: [  123.456789] pangea_drv: loading driver version 2.5.1
+Feb 25 10:00:01 server1 kernel: [  123.567890] pangea_drv: PCI device 10ee:9023 detected
+Feb 25 10:00:02 server1 kernel: [  123.678901] pangea_drv: Failed to load firmware pangea_fw.bin
+Feb 25 10:00:03 server1 kernel: [  123.789012] pangea_drv: request_firmware failed with error -2
+Feb 25 10:00:04 server1 kernel: [  123.890123] pangea_drv: Driver initialization failed
+Feb 25 10:00:05 server1 kernel: [  124.001234] pangea_drv: probe failed for device 0000:17:00.0
+Feb 25 10:01:00 server1 kernel: [  234.567890] pangea_kern: RX queue 0 dropped 15234 packets
+Feb 25 10:01:01 server1 kernel: [  234.678901] pangea_kern: buffer allocation failed, out of memory
+Feb 25 10:01:02 server1 kernel: [  234.789012] pangea_kern: TX timeout on queue 2
+Feb 25 10:01:03 server1 kernel: [  234.890123] pangea_kern: link state changed to DOWN
+Feb 25 10:02:00 server1 kernel: [  235.001234] pangea_kern: fatal error: DMA engine stalled
+Feb 25 10:02:01 server1 kernel: [  235.112345] pangea_kern: resetting device...
+Feb 25 10:03:00 server1 pangea_agent[12345]: ERROR Connection to kernel module lost
+Feb 25 10:03:01 server1 pangea_agent[12345]: ERROR ioctl PANGEA_GET_STATS failed: Device or resource busy
+Feb 25 10:03:02 server1 pangea_agent[12345]: ERROR Failed to update flow rules
+Feb 25 10:03:03 server1 pangea_agent[12345]: ERROR Memory allocation failed for flow table
+Feb 25 10:03:04 server1 pangea_agent[12345]: FATAL Critical error, restarting service
+Feb 25 10:04:00 server1 kernel: [  345.678901] pangea_drv: Firmware version 1.2.3 loaded
+Feb 25 10:04:01 server1 kernel: [  345.789012] pangea_drv: Driver expects firmware version 1.3.0+
+Feb 25 10:04:02 server1 kernel: [  345.890123] pangea_drv: Firmware version mismatch, some features disabled
+Feb 25 10:05:00 server1 kernel: [  456.789012] pangea_drv: PCIe link lost for device 0000:17:00.0
+Feb 25 10:05:01 server1 kernel: [  456.890123] pangea_drv: AER: Corrected error received: 0x00001000
+Feb 25 10:05:02 server1 kernel: [  456.901234] pangea_drv: AER: Uncorrectable error received: 0x00002000
+Feb 25 10:05:03 server1 kernel: [  457.012345] pangea_drv: Hardware fatal error, device disabled
+Feb 25 10:06:00 server1 kernel: [  567.890123] pangea_drv: SFP module detected in port 0
+Feb 25 10:06:01 server1 kernel: [  567.901234] pangea_drv: SFP EEPROM read failed
+Feb 25 10:06:02 server1 kernel: [  568.012345] pangea_drv: Unsupported SFP module type
+Feb 25 10:06:03 server1 kernel: [  568.123456] pangea_drv: Optical power out of range: -25.3 dBm
+Feb 25 10:06:04 server1 kernel: [  568.234567] pangea_drv: Link training failed for port 0
+Feb 25 10:07:00 server1 network-config: ERROR IP address 192.168.1.100 already in use
+Feb 25 10:07:01 server1 network-config: ERROR Gateway 192.168.1.1 unreachable
+Feb 25 10:07:02 server1 network-config: ERROR DNS resolution failed for internal.pangea.io
+Feb 25 10:08:00 server1 network: ERROR MAC address 00:1a:2b:3c:4d:5e conflict detected
+Feb 25 10:08:01 server1 network: ERROR Duplicate MAC on interface pangea0
+Feb 25 10:09:00 server1 routing: ERROR Default gateway not configured
+Feb 25 10:09:01 server1 routing: ERROR Route to 10.0.0.0/8 via 192.168.1.1 failed
