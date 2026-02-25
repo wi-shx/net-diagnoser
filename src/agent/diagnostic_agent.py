@@ -82,7 +82,7 @@ class DiagnosticAgent(BaseAgent):
             ssh_configs=ssh_configs,
             mock_mode=mock_mode,
         )
-        self.memory = AgentMemory()
+        self.agent_memory = AgentMemory()  # 使用 agent_memory 避免与父类的 memory 列表冲突
 
         # 诊断上下文
         self._context: Optional[DiagnosticContext] = None
@@ -214,14 +214,14 @@ class DiagnosticAgent(BaseAgent):
             action.result = analysis.to_dict()
 
             # 记录事实
-            self.memory.add_fact(
+            self.agent_memory.add_fact(
                 f"问题类型: {analysis.problem_type}",
                 source="AI分析",
                 confidence=analysis.confidence,
             )
 
             for i, cause in enumerate(analysis.possible_causes[:3]):
-                self.memory.add_hypothesis(
+                self.agent_memory.add_hypothesis(
                     hypothesis=cause,
                     evidence=["AI分析识别的可能原因"],
                     confidence=analysis.confidence * (0.9 - i * 0.1),
@@ -246,7 +246,7 @@ class DiagnosticAgent(BaseAgent):
             决定的操作
         """
         # 获取当前假设
-        hypotheses = self.memory.get_active_hypotheses()
+        hypotheses = self.agent_memory.get_active_hypotheses()
 
         # 获取建议命令
         suggested_commands = (
@@ -371,13 +371,13 @@ class DiagnosticAgent(BaseAgent):
 
             elif result.error:
                 observation["error"] = result.error
-                self.memory.add_fact(
+                self.agent_memory.add_fact(
                     f"命令执行失败: {result.error}",
                     source=action.parameters.get("command", "unknown"),
                 )
 
         # 记录到记忆
-        self.memory.add_entry(
+        self.agent_memory.add_entry(
             round=self.state.current_round,
             action_type=action.type.value,
             action_description=action.description,
@@ -415,19 +415,19 @@ class DiagnosticAgent(BaseAgent):
         for finding in findings:
             # 简单的假设更新逻辑
             if "timeout" in finding.lower():
-                self.memory.add_fact(
+                self.agent_memory.add_fact(
                     "存在超时问题",
                     source="命令输出",
                     confidence=0.8,
                 )
             elif "connection_refused" in finding.lower():
-                self.memory.add_fact(
+                self.agent_memory.add_fact(
                     "连接被拒绝",
                     source="命令输出",
                     confidence=0.9,
                 )
             elif "dns" in finding.lower():
-                self.memory.add_fact(
+                self.agent_memory.add_fact(
                     "存在DNS问题",
                     source="命令输出",
                     confidence=0.8,
@@ -436,7 +436,7 @@ class DiagnosticAgent(BaseAgent):
     def _can_conclude(self) -> bool:
         """检查是否可以得出结论"""
         # 如果有高置信度的确认假设，可以结束
-        for h in self.memory.hypotheses:
+        for h in self.agent_memory.hypotheses:
             if h["status"] == "confirmed" and h["confidence"] > 0.8:
                 return True
 
@@ -471,7 +471,7 @@ class DiagnosticAgent(BaseAgent):
             )
 
         # 发现的事实
-        facts = self.memory.get_facts()
+        facts = self.agent_memory.get_facts()
         if facts:
             sections.append("## 发现的事实")
             sections.append("")
@@ -480,10 +480,10 @@ class DiagnosticAgent(BaseAgent):
             sections.append("")
 
         # 假设验证
-        if self.memory.hypotheses:
+        if self.agent_memory.hypotheses:
             sections.append("## 假设验证")
             sections.append("")
-            for h in self.memory.hypotheses:
+            for h in self.agent_memory.hypotheses:
                 status = {
                     "confirmed": "✓ 已确认",
                     "rejected": "✗ 已排除",
